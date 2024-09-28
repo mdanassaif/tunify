@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ songs, setSearchResults }) => {
       song.title.toLowerCase().startsWith(query) || song.artist.toLowerCase().startsWith(query)
     );
 
-    setSearchResults(filteredSongs); // update  
+    setSearchResults(filteredSongs);  
   };
 
 
