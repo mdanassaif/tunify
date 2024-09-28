@@ -1,0 +1,248 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.active-song {
+  position: relative;
+  overflow: hidden;
+  background-color: #88e58b; /* Example of a green background for active song */
+  height: 100px; /* Adjust the height as needed */
+}
+
+.active-song::before,
+.active-song::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  min-width: 300vw;
+  min-height: 300vw;
+  background-color: #FCFFF5; /* Example background color for the wave */
+  animation-name: rotate;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.active-song::before {
+  bottom: 15vh;
+  border-radius: 45%;
+  animation-duration: 10s;
+}
+
+.active-song::after {
+  bottom: 12vh;
+  opacity: 0.5;
+  border-radius: 47%;
+  animation-duration: 10s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, 0) rotateZ(0deg);
+  }
+  50% {
+    transform: translate(-50%, -2%) rotateZ(180deg);
+  }
+  100% {
+    transform: translate(-50%, 0%) rotateZ(360deg);
+  }
+}
+
+.active-song::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 300vw; /* Adjust width as needed for the wave */
+  height: 300vw; /* Adjust height as needed for the wave */
+  min-width: 300vw; /* Ensure minimum width covers the container */
+  min-height: 300vw; /* Ensure minimum height covers the container */
+  background-color: #FCFFF5; /* Example background color for the wave */
+  border-radius: 45%; /* Adjust border radius for the wave shape */
+  opacity: 0.5; /* Adjust opacity as needed */
+  transform: translateX(-50%);
+  animation: wave 8s linear infinite; /* Wave animation */
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-50%, -1%) rotateZ(0deg);
+  }
+  25% {
+    transform: translate(-50%, -2%) rotateZ(180deg);
+  }
+  50% {
+    transform: translate(-50%, -3%) rotateZ(360deg);
+  }
+  75% {
+    transform: translate(-50%, -4%) rotateZ(180deg);
+  }
+  100% {
+    transform: translate(-50%, -1%) rotateZ(360deg);
+  }
+}
+
+
+
+
+
+/* In global.css or the relevant CSS module */
+.player-expanded {
+  height: 100vh;
+}
+
+.player-collapsed {
+  height: 100px; /* Adjust based on your design */
+}
+
+.player-dragging {
+  transition: none;
+}
+
+
+
+/* SnowBackground.css */
+
+/* Ensure full viewport coverage */
+ 
+
+/* Center the ripple animation */
+.ripple-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -100;
+}
+
+/* Ripple effect animation */
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+/* Styles for circles */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+
+  background:  #ce0202;
+  animation: ripple 15s infinite;
+  box-shadow: 0px 0px 1px 0px #f5e100;
+}
+
+/* Sizes and positions for different circle sizes */
+.small {
+  width: 200px;
+  height: 200px;
+  left: -100px;
+  bottom: -100px;
+}
+
+.medium {
+  width: 400px;
+  height: 400px;
+  left: -200px;
+  bottom: -200px;
+}
+
+.large {
+  width: 600px;
+  height: 600px;
+  left: -300px;
+  bottom: -300px;
+}
+
+.xlarge {
+  width: 800px;
+  height: 800px;
+  left: -400px;
+  bottom: -400px;
+}
+
+.xxlarge {
+  width: 1000px;
+  height: 1000px;
+  left: -500px;
+  bottom: -500px;
+}
+
+/* Opacity shades for circles */
+.shade1 {
+  opacity: 0.2;
+}
+
+.shade2 {
+  opacity: 0.5;
+}
+
+.shade3 {
+  opacity: 0.7;
+}
+
+.shade4 {
+  opacity: 0.8;
+}
+
+.shade5 {
+  opacity: 0.9;
+}
+
+/* Dark mode colors */
+.dark-mode-shade1 {
+  opacity: 0.2;
+  background: #88e58b;
+}
+
+.dark-mode-shade2 {
+  opacity: 0.5;
+  background: #88e58b;
+}
+
+.dark-mode-shade3 {
+  opacity: 0.7;
+  background: #88e58b;
+}
+
+.dark-mode-shade4 {
+  opacity: 0.8;
+  background: #88e58b;
+}
+
+.dark-mode-shade5 {
+  opacity: 0.9;
+  background: #88e58b;
+}
+
+
+/* styles.css */
+
+/* Keyframes for animated border */
+@keyframes borderAnimation {
+  0% {
+    border-color: #88e58bd1;
+    transform: translateX(0);
+  }
+  50% {
+    border-color: #ffed4cce;
+    transform: translateX(5px); /* Example: Move border horizontally */
+  }
+  100% {
+    border-color: #ce0202b9;
+    transform: translateX(0);
+  }
+}
+
+.border {
+  border: 5px solid #ce0202;
+  animation: borderAnimation 2s infinite; /* Adjust duration and animation behavior as needed */
+}
+
+ 
