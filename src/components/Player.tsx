@@ -259,7 +259,7 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                  step="0.01"
                  value={volume}
                  onChange={handleVolumeChange}
-                 className="w-20 appearance-none h-1 bg-gray-300 rounded outline-none opacity-70 transition-opacity duration-200 hover:opacity-100"
+                 className="w-10 appearance-none h-1 bg-gray-300 rounded outline-none opacity-70 transition-opacity duration-200 hover:opacity-100"
                />
              </div>
            </div>

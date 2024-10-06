@@ -92,4 +92,18 @@ export const songs: Song[] = [
     coverUrl: '/covers/cover13.jpeg',
     audioUrl: '/song13.mp3',
   },
+  {
+    id: '14',
+    title: 'Aayi Nai',
+    artist: 'Sachin-Jigar',
+    coverUrl: '/covers/cover14.jpeg',
+    audioUrl: '/song14.mp3',
+  },
+  {
+    id: '15',
+    title: 'All stars in the sky',
+    artist: 'Coldplay',
+    coverUrl: '/covers/cover15.png',
+    audioUrl: '/song15.mp3',
+  },
 ];
