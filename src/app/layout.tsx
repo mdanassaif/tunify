@@ -1,10 +1,10 @@
 // layout.tsx
 import type { Metadata } from "next";
-import { Mukta } from "next/font/google";
-import { ThemeProvider } from "../context/ThemeContext"; // Adjust the import path as necessary
+import { Exo_2 } from "next/font/google";
+import { ThemeProvider } from "../context/ThemeContext";  
 import "./globals.css";
 
-const inter = Mukta({
+const inter = Exo_2({
   subsets: ["latin"],
   weight: "400"
 });

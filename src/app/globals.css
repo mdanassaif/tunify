@@ -246,3 +246,122 @@
 }
 
  
+
+/* Enhanced Ripple and Pulse Animations */
+@keyframes ripple {
+  0% {
+    transform: scale(0.5) rotate(0deg);
+    opacity: 0.7;
+    box-shadow: 0 0 10px rgba(72, 187, 120, 0.3);
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 0.5;
+    box-shadow: 0 0 20px rgba(72, 187, 120, 0.5);
+  }
+  100% {
+    transform: scale(1.5) rotate(360deg);
+    opacity: 0.2;
+    box-shadow: 0 0 30px rgba(72, 187, 120, 0.2);
+  }
+}
+
+.ripple-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  perspective: 1000px;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%, 
+    rgba(72, 187, 120, 0.2), 
+    rgba(72, 187, 120, 0.1) 50%, 
+    transparent 70%
+  );
+  animation: ripple 5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  transform-origin: center;
+  transition: all 0.5s ease;
+}
+
+.xxlarge {
+  width: 500px;
+  height: 500px;
+  animation-delay: -0.5s;
+}
+
+.xlarge {
+  width: 400px;
+  height: 400px;
+  animation-delay: -1s;
+}
+
+.large {
+  width: 300px;
+  height: 300px;
+  animation-delay: -1.5s;
+}
+
+.medium {
+  width: 250px;
+  height: 250px;
+  animation-delay: -2s;
+}
+
+.small {
+  width: 200px;
+  height: 200px;
+  animation-delay: -2.5s;
+}
+
+/* Dark Mode Specific Shades */
+.dark-mode-shade1 {
+  background: radial-gradient(
+    circle at 30% 30%, 
+    rgba(45, 55, 72, 0.3), 
+    rgba(45, 55, 72, 0.2) 50%, 
+    transparent 70%
+  );
+}
+
+.dark-mode-shade2 {
+  background: radial-gradient(
+    circle at 30% 30%, 
+    rgba(55, 65, 82, 0.3), 
+    rgba(55, 65, 82, 0.2) 50%, 
+    transparent 70%
+  );
+}
+
+.dark-mode-shade3 {
+  background: radial-gradient(
+    circle at 30% 30%, 
+    rgba(65, 75, 92, 0.3), 
+    rgba(65, 75, 92, 0.2) 50%, 
+    transparent 70%
+  );
+}
+
+.dark-mode-shade4 {
+  background: radial-gradient(
+    circle at 30% 30%, 
+    rgba(75, 85, 102, 0.3), 
+    rgba(75, 85, 102, 0.2) 50%, 
+    transparent 70%
+  );
+}
+
+.dark-mode-shade5 {
+  background: radial-gradient(
+    circle at 30% 30%, 
+    rgba(85, 95, 112, 0.3), 
+    rgba(85, 95, 112, 0.2) 50%, 
+    transparent 70%
+  );
+}
+

@@ -1,3 +1,5 @@
+// Cute Arrangement of Song  on /components/SongList.tsx
+
 'use client'
 
 import React, { useState } from 'react';
@@ -8,7 +10,10 @@ import { useTheme } from '../context/ThemeContext';
 
 interface SongListProps {
   tracks: Song[];
+
   onSongClick: (song: Song) => void;
+
+  onDeleteSong: (songId: string) => Promise<void>;
 }
 
 const SongList: React.FC<SongListProps> = ({ tracks, onSongClick }) => {
@@ -56,7 +61,7 @@ const SongList: React.FC<SongListProps> = ({ tracks, onSongClick }) => {
           <Image src={track.coverUrl} alt={track.title} width={64} height={64} className="h-16 w-16 rounded-lg" />
           <div>
             <p className={isDarkMode ? 'text-white' : 'text-gray-900'}>{track.title}</p>
-            <p className={`${currentSong && currentSong.id === track.id ? 'text-gray-900' : isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{track.artist}</p>
+            <p className={`${currentSong && currentSong.id === track.id ? 'text-gray-900 text-xs' : isDarkMode ? 'text-gray-400 text-xs' : 'text-gray-500 text-xs'}`}>{track.artist}</p>
           </div>
         </motion.div>
       ))}

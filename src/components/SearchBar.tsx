@@ -1,3 +1,5 @@
+// Cute Search Bar on /components/SearchBar.tsx
+
 'use client'
 
 import React, { useState } from 'react';
@@ -27,7 +29,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ songs, setSearchResults }) => {
 
 
   return (
-    <div className="mt-0">
+    <div className="mt-0 w-[70%]">
       <input
         type="text"
         placeholder="Search songs, artists..."
