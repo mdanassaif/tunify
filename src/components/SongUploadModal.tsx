@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { supabase } from '../lib/supabaseClient';
 import { v4 as uuidv4 } from 'uuid';
-import { Upload, Music, Image, X, Clock } from 'lucide-react';
 
 interface SongUploadModalProps {
   isOpen: boolean;
@@ -229,68 +228,16 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
 
   if (!isOpen) return null;
 
-  const FileInput = ({ 
-    icon: Icon, 
-    label, 
-    accept, 
-    onChange, 
-    fileName 
-  }: { 
-    icon: React.ElementType, 
-    label: string, 
-    accept: string, 
-    onChange: (file: File | null) => void,
-    fileName?: string 
-  }) => (
-    <div className="mb-4">
-      <div className={`
-        flex items-center border-2 rounded-lg p-3 transition-all duration-300
-        ${isDarkMode 
-          ? 'border-gray-600 hover:border-green-500' 
-          : 'border-gray-300 hover:border-green-400'
-        } ${fileName ? 'border-green-500' : ''}
-      `}>
-        <Icon className={`mr-3 ${fileName ? 'text-green-500' : 'text-gray-500'}`} />
-        <label className="flex-grow cursor-pointer">
-          {fileName ? (
-            <span className="text-sm text-green-600 truncate">{fileName}</span>
-          ) : (
-            <span className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              {label}
-            </span>
-          )}
-          <input
-            type="file"
-            accept={accept}
-            onChange={(e) => onChange(e.target.files?.[0] || null)}
-            className="hidden"
-            required
-          />
-        </label>
-      </div>
-    </div>
-  );
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
       <div className={`
-        relative w-[500px] p-8 rounded-2xl shadow-2xl transform transition-all duration-300 
+        relative w-[450px] p-8 rounded-2xl shadow-2xl transform transition-all duration-300 
         ${isDarkMode 
-          ? 'bg-gray-900 text-white border border-gray-700' 
-          : 'bg-white text-black border border-gray-200'}
-        hover:scale-[1.02]
+          ? 'bg-gray-900 text-white  border-gray-700' 
+          : 'bg-white text-black  border-gray-200'}
+        
       `}>
-        <button 
-          onClick={onClose} 
-          className={`
-            absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200/20 transition-colors
-            ${isDarkMode ? 'text-gray-400 hover:bg-gray-700' : 'text-gray-600'}
-          `}
-        >
-          <X size={24} />
-        </button>
-
-        <div className="text-center mb-6">
+     <div className="text-center mb-6">
           <h2 className={`
             text-3xl font-bold mb-2 
             ${isDarkMode ? 'text-green-300' : 'text-green-600'}
@@ -304,97 +251,92 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
             Share your favorite music with the world
           </p>
         </div>
-
-        {error && (
-          <div className="bg-red-500/20 border border-red-500 text-red-500 p-3 rounded-lg mb-4 flex items-center">
-            <span className="ml-2">{error}</span>
-          </div>
-        )}
-
-        {!canUpload && (
-          <div className="bg-yellow-500/20 border border-yellow-500 text-yellow-600 p-3 rounded-lg mb-4 flex items-center">
-            <Clock className="mr-2" />
-            <span>Next upload available in: {formatTime(remainingTime)}</span>
-          </div>
-        )}
-
+      {error && (
+        <div className="bg-red-500 text-white p-2 rounded mb-4">
+          {error}
+        </div>
+      )}
+      {!canUpload && (
+        <div className="bg-yellow-500 text-white p-2 rounded mb-4">
+          Next upload available in: {formatTime(remainingTime)}
+        </div>
+      )}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Song Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className={`
-              w-full p-3 rounded-lg border-2 transition-all duration-300
-              ${isDarkMode 
-                ? 'bg-gray-800 border-gray-700 focus:border-green-500' 
-                : 'bg-gray-50 border-gray-300 focus:border-green-400'}
-            `}
-            required
-          />
+          <div className="mb-4">
+            <label className="block mb-2">Song Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className={`
+                w-full p-3 rounded-lg border-2 transition-all duration-300
+                ${isDarkMode 
+                  ? 'bg-gray-800 border-gray-700 focus:border-green-500' 
+                  : 'bg-gray-50 border-gray-300 focus:border-green-400'}
+              `}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Artist Name</label>
+            <input
+              type="text"
+              value={artist}
+              onChange={(e) => setArtist(e.target.value)}
+              className={`
+                w-full p-3 rounded-lg border-2 transition-all duration-300
+                ${isDarkMode 
+                  ? 'bg-gray-800 border-gray-700 focus:border-green-500' 
+                  : 'bg-gray-50 border-gray-300 focus:border-green-400'}
+              `}
+              required
+            />
+          </div>
 
-          <input
-            type="text"
-            placeholder="Artist Name"
-            value={artist}
-            onChange={(e) => setArtist(e.target.value)}
-            className={`
-              w-full p-3 rounded-lg border-2 transition-all duration-300
-              ${isDarkMode 
-                ? 'bg-gray-800 border-gray-700 focus:border-green-500' 
-                : 'bg-gray-50 border-gray-300 focus:border-green-400'}
-            `}
-            required
-          />
-
-          <FileInput 
-            icon={Image} 
-            label="Choose Cover Image" 
-            accept="image/*" 
-            onChange={setCoverFile}
-            fileName={coverFile?.name}
-          />
-
-          <FileInput 
-            icon={Music} 
-            label="Select MP3 File" 
-            accept="audio/mp3" 
-            onChange={setAudioFile}
-            fileName={audioFile?.name}
-          />
-
-          <div className="flex space-x-4">
+          
+          <div className="mb-4">
+            <label className="block mb-2">Cover Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setCoverFile(e.target.files?.[0] || null)}
+              className={`w-full p-2 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Audio File (MP3)</label>
+            <input
+              type="file"
+              accept="audio/mp3"
+              onChange={(e) => setAudioFile(e.target.files?.[0] || null)}
+              className={`w-full p-2 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
+              required
+            />
+          </div>
+          <div className="flex justify-between">
             <button
               type="button"
               onClick={onClose}
-              className={`
-                flex-1 p-3 rounded-lg transition-all duration-300
-                ${isDarkMode 
-                  ? 'bg-gray-700 hover:bg-gray-600' 
-                  : 'bg-gray-200 hover:bg-gray-300'}
-              `}
+              className={`px-4 py-2 rounded ${isDarkMode ? 'bg-gray-600 hover:bg-gray-500' : 'bg-gray-200 hover:bg-gray-300'}`}
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isUploading || !canUpload}
-              className={`
-                flex-1 p-3 rounded-lg flex items-center justify-center space-x-2 transition-all duration-300
-                ${!canUpload 
+              className={`px-4 py-2 rounded ${
+                !canUpload 
                   ? 'bg-gray-400 cursor-not-allowed' 
                   : (isUploading 
-                    ? 'bg-green-400' 
-                    : 'bg-green-600 text-white hover:bg-green-700')}
-              `}
+                    ? 'bg-gray-400' 
+                    : 'bg-green-500 text-white hover:bg-green-600')
+              }`}
             >
-              <Upload size={20} />
-              <span>
-                {!canUpload 
-                  ? `Wait ${formatTime(remainingTime)}` 
-                  : (isUploading ? 'Uploading...' : 'Upload Song')
-                }
-              </span>
+              {!canUpload 
+                ? `Wait ${formatTime(remainingTime)}` 
+                : (isUploading ? 'Uploading...' : 'Upload Song')
+              }
             </button>
           </div>
         </form>

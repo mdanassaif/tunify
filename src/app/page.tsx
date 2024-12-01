@@ -34,7 +34,7 @@ export default function Home() {
     const fetchSongs = async () => {
       try {
         // Simulate a minimum loading time to show loader
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1500));
 
         // Fetch custom songs from Supabase
         const { data: customSongs, error } = await supabase
