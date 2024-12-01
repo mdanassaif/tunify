@@ -14,6 +14,8 @@ interface RippleCircle {
   zIndex: number;
 }
 
+
+
 export default function AdvancedRippleBackground() {
   const [ripples, setRipples] = useState<RippleCircle[]>([]);
 
@@ -39,7 +41,7 @@ export default function AdvancedRippleBackground() {
       'w-80 h-80'
     ];
 
-    const animationTypes = ['expand', 'contract', 'rotate', 'transform'];
+    const animationTypes: RippleCircle['animationType'][] = ['expand', 'contract', 'rotate', 'transform'];
 
     const newRipples = Array.from({ length: 20 }).map(() => ({
       id: generateUniqueId(),
