@@ -185,12 +185,13 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
             <RippleBackground />
           )}
           <div className={`flex-shrink-0 ${isExpanded ? 'mb-4' : ''}`}>
-            <Image 
-              src={currentSong.coverUrl} 
-              alt="Song Cover" 
-              width={isExpanded ? 350 : 100} 
-              height={isExpanded ? 350 : 100} 
-              className="rounded-lg border shadow-lg transform transition-transform duration-300 hover:scale-105" 
+            <Image
+              src={currentSong.coverUrl}
+              alt="Song Cover"
+              width={isExpanded ? 350 : 100}
+              
+              height={isExpanded ? 350 : 100}
+              className="rounded-lg border shadow-lg transform transition-transform duration-300 hover:scale-105 "
             />
           </div>
           <div className="flex-1 min-w-0">
@@ -254,24 +255,24 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 onClick={handlePlayPause}
               >
                 {isPlaying ? (
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width={isExpanded ? 50 : 30} 
-                    height={isExpanded ? 50 : 30} 
-                    viewBox="0 0 24 24" 
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={isExpanded ? 50 : 30}
+                    height={isExpanded ? 50 : 30}
+                    viewBox="0 0 24 24"
                     className={iconStyles.pause}
                   >
-                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm-2 14c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1z"/>
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm-2 14c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1z" />
                   </svg>
                 ) : (
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width={isExpanded ? 50 : 30} 
-                    height={isExpanded ? 50 : 30} 
-                    viewBox="0 0 24 24" 
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={isExpanded ? 50 : 30}
+                    height={isExpanded ? 50 : 30}
+                    viewBox="0 0 24 24"
                     className={iconStyles.play}
                   >
-                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5z"/>
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5z" />
                   </svg>
                 )}
               </button>
@@ -296,41 +297,41 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 </svg>
               </button>
 
-        
-             {/* Volume Control */}
-<div className="flex items-center space-x-2 hidden sm:flex">
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={isDarkMode ? 'text-white' : 'text-black'}
-  >
-    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-  </svg>
-  <input
-    type="range"
-    min="0"
-    max="1"
-    step="0.01"
-    value={volume}
-    onChange={handleVolumeChange}
-    className="w-20 appearance-none h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full 
+
+              {/* Volume Control */}
+              <div className="flex items-center space-x-2 hidden sm:flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className={isDarkMode ? 'text-white' : 'text-black'}
+                >
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                </svg>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={handleVolumeChange}
+                  className="w-20 appearance-none h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full 
     outline-none 
     transition-all duration-300 
     hover:h-3 
     transform hover:scale-y-110 
     cursor-pointer"
-    style={{
-      background: `linear-gradient(to right, 
+                  style={{
+                    background: `linear-gradient(to right, 
         #48bb78 0%, 
         #48bb78 ${volume * 100}%, 
         #e2e8f0 ${volume * 100}%, 
         #e2e8f0 100%)`,
-    }}
-  />
-</div>
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -342,42 +343,42 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
 
       {/* Expand/Minimize Button */}
       <button
-   className={`absolute bottom-2 right-2 p-2 ${isDarkMode ? 'text-white' : 'text-black'} 
+        className={`absolute bottom-2 right-2 p-2 ${isDarkMode ? 'text-white' : 'text-black'} 
    transform transition-transform duration-300 hover:scale-110`}
-   onClick={handleExpand}
- >
-   {isExpanded ? (
-     <svg 
-       xmlns="http://www.w3.org/2000/svg" 
-       width={20} 
-       height={20} 
-       viewBox="0 0 24 24"
-       className="hover:text-green-500 transition-colors duration-300"
-     >
-       <path 
-         fill="currentColor" 
-         d="M16.121 6.465L14 4.344V10h5.656l-2.121-2.121l3.172-3.172l-1.414-1.414zM4.707 3.293L3.293 4.707l3.172 3.172L4.344 10H10V4.344L7.879 6.465zM19.656 14H14v5.656l2.121-2.121l3.172 3.172l1.414-1.414l-3.172-3.172zM6.465 16.121l-3.172 3.172l1.414 1.414l3.172-3.172L10 19.656V14H4.344z"
-       />
-     </svg>
-   ) : (
-     <svg 
-       xmlns="http://www.w3.org/2000/svg" 
-       width={20} 
-       height={20} 
-       viewBox="0 0 24 24"
-       className="hover:text-blue-500 transition-colors duration-300"
-     >
-       <path 
-         fill="currentColor" 
-         fillRule="evenodd" 
-         d="M6 4.75c-.69 0-1.25.56-1.25 1.25v3a.75.75 0 0 1-1.5 0V6A2.75 2.75 0 0 1 6 3.25h3a.75.75 0 0 1 0 1.5zM14.25 4a.75.75 0 0 1 .75-.75h3A2.75 2.75 0 0 1 20.75 6v3a.75.75 0 0 1-1.5 0V6c0-.69-.56-1.25-1.25-1.25h-3a.75.75 0 0 1-.75-.75M4 14.25a.75.75 0 0 1 .75.75v3c0 .69.56 1.25 1.25 1.25h3a.75.75 0 0 1 0 1.5H6A2.75 2.75 0 0 1 3.25 18v-3a.75.75 0 0 1 .75-.75m16 0a.75.75 0 0 1 .75.75v3A2.75 2.75 0 0 1 18 20.75h-3a.75.75 0 0 1 0-1.5h3c.69 0 1.25-.56 1.25-1.25v-3a.75.75 0 0 1 .75-.75"
-         clipRule="evenodd" 
-       />
-     </svg>
-   )}
- </button>
-</div>
-);
+        onClick={handleExpand}
+      >
+        {isExpanded ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={20}
+            height={20}
+            viewBox="0 0 24 24"
+            className="hover:text-green-500 transition-colors duration-300"
+          >
+            <path
+              fill="currentColor"
+              d="M16.121 6.465L14 4.344V10h5.656l-2.121-2.121l3.172-3.172l-1.414-1.414zM4.707 3.293L3.293 4.707l3.172 3.172L4.344 10H10V4.344L7.879 6.465zM19.656 14H14v5.656l2.121-2.121l3.172 3.172l1.414-1.414l-3.172-3.172zM6.465 16.121l-3.172 3.172l1.414 1.414l3.172-3.172L10 19.656V14H4.344z"
+            />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={20}
+            height={20}
+            viewBox="0 0 24 24"
+            className="hover:text-blue-500 transition-colors duration-300"
+          >
+            <path
+              fill="currentColor"
+              fillRule="evenodd"
+              d="M6 4.75c-.69 0-1.25.56-1.25 1.25v3a.75.75 0 0 1-1.5 0V6A2.75 2.75 0 0 1 6 3.25h3a.75.75 0 0 1 0 1.5zM14.25 4a.75.75 0 0 1 .75-.75h3A2.75 2.75 0 0 1 20.75 6v3a.75.75 0 0 1-1.5 0V6c0-.69-.56-1.25-1.25-1.25h-3a.75.75 0 0 1-.75-.75M4 14.25a.75.75 0 0 1 .75.75v3c0 .69.56 1.25 1.25 1.25h3a.75.75 0 0 1 0 1.5H6A2.75 2.75 0 0 1 3.25 18v-3a.75.75 0 0 1 .75-.75m16 0a.75.75 0 0 1 .75.75v3A2.75 2.75 0 0 1 18 20.75h-3a.75.75 0 0 1 0-1.5h3c.69 0 1.25-.56 1.25-1.25v-3a.75.75 0 0 1 .75-.75"
+              clipRule="evenodd"
+            />
+          </svg>
+        )}
+      </button>
+    </div>
+  );
 };
 
 export default Player;
