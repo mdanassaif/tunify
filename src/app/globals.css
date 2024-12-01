@@ -105,31 +105,31 @@
   0% {
     border-color: #88e58bd1;
     border-radius: 10px;
-    transform: translateX(0) rotate(0deg) scale(1);
+    
     box-shadow: 0 0 5px rgba(136, 229, 139, 0.5);
   }
   25% {
     border-color: #ffed4cce;
     border-radius: 30px;
-    transform: translateX(5px) rotate(5deg) scale(1.05);
+  
     box-shadow: 0 0 10px rgba(255, 237, 76, 0.7);
   }
   50% {
     border-color: #02ce5f;
     border-radius: 5px;
-    transform: translateX(-5px) rotate(-5deg) scale(0.95);
+    
     box-shadow: 0 0 15px rgba(2, 206, 95, 0.6);
   }
   75% {
     border-color: #0288ce;
     border-radius: 20px;
-    transform: translateX(3px) rotate(3deg) scale(1.02);
+ 
     box-shadow: 0 0 10px rgba(2, 136, 206, 0.7);
   }
   100% {
     border-color: #ce0202b9;
     border-radius: 10px;
-    transform: translateX(0) rotate(0deg) scale(1);
+    
     box-shadow: 0 0 5px rgba(206, 2, 2, 0.5);
   }
 }
