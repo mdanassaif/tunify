@@ -12,8 +12,8 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         className="bg-white w-[85%] max-w-md p-6 rounded-xl shadow-xl overflow-y-auto relative"
       >
-        {/* Header Section */}
         <div className="flex justify-between items-center mb-4">
+
           <h2 className="text-lg font-extrabold text-[#2dd4bf]">About This Tunify</h2>
           <button
             onClick={onClose}
@@ -50,10 +50,10 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
             </div>
           </div>
           <p>
-            Welcome to Tunify Music Player built with 🫶🏽
+            Welcome to Tunify Music Player
           </p>
           <p className="mt-4">
-            <strong>Users can:</strong>
+            <strong>You can:</strong>
           </p>
           <ul className="list-disc list-inside pl-4 mt-2 space-y-1">
             <li>Listen to Popular Songs</li>
@@ -64,9 +64,6 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
             <li>Can Upload own Favorite Songs</li>
           </ul>
 
-          
-
-          {/* Promotion Section */}
           <p className="mt-6 border-t pt-4 text-center text-gray-500">
             Looking for free, open-source SVG icons? Check out{' '}
             <a

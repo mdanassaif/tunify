@@ -6,8 +6,8 @@
 .active-song {
   position: relative;
   overflow: hidden;
-  background-color: #88e58b; /* Example of a green background for active song */
-  height: 100px; /* Adjust the height as needed */
+  background-color: #88e58b;  
+  height: 100px;  
 }
 
 .active-song::before,
@@ -17,7 +17,7 @@
   left: 50%;
   min-width: 300vw;
   min-height: 300vw;
-  background-color: #FCFFF5; /* Example background color for the wave */
+  background-color: #FCFFF5;  
   animation-name: rotate;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
@@ -53,15 +53,15 @@
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: 300vw; /* Adjust width as needed for the wave */
-  height: 300vw; /* Adjust height as needed for the wave */
-  min-width: 300vw; /* Ensure minimum width covers the container */
-  min-height: 300vw; /* Ensure minimum height covers the container */
-  background-color: #FCFFF5; /* Example background color for the wave */
-  border-radius: 45%; /* Adjust border radius for the wave shape */
-  opacity: 0.5; /* Adjust opacity as needed */
+  width: 300vw;  
+  height: 300vw;  
+  min-width: 300vw; 
+  min-height: 300vw;  
+  background-color: #FCFFF5;  
+  border-radius: 45%;  
+  opacity: 0.5; 
   transform: translateX(-50%);
-  animation: wave 8s linear infinite; /* Wave animation */
+  animation: wave 8s linear infinite;  
 }
 
 @keyframes wave {
@@ -82,286 +82,61 @@
   }
 }
 
-
-
-
-
-/* In global.css or the relevant CSS module */
 .player-expanded {
   height: 100vh;
 }
 
 .player-collapsed {
-  height: 100px; /* Adjust based on your design */
+  height: 100px; 
 }
 
 .player-dragging {
   transition: none;
 }
 
-
-
-/* SnowBackground.css */
-
-/* Ensure full viewport coverage */
- 
-
-/* Center the ripple animation */
-.ripple-background {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -100;
+.border {
+  border: 3px solid #ce0202;
+  border-radius: 10px;
+  animation: borderAnimation 2s infinite ease-in-out;
+  transition: all 0.3s ease;
 }
 
-/* Ripple effect animation */
-@keyframes ripple {
-  0% {
-    transform: scale(0.8);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(0.8);
-  }
-}
-
-/* Styles for circles */
-.circle {
-  position: absolute;
-  border-radius: 50%;
-
-  background:  #ce0202;
-  animation: ripple 15s infinite;
-  box-shadow: 0px 0px 1px 0px #f5e100;
-}
-
-/* Sizes and positions for different circle sizes */
-.small {
-  width: 200px;
-  height: 200px;
-  left: -100px;
-  bottom: -100px;
-}
-
-.medium {
-  width: 400px;
-  height: 400px;
-  left: -200px;
-  bottom: -200px;
-}
-
-.large {
-  width: 600px;
-  height: 600px;
-  left: -300px;
-  bottom: -300px;
-}
-
-.xlarge {
-  width: 800px;
-  height: 800px;
-  left: -400px;
-  bottom: -400px;
-}
-
-.xxlarge {
-  width: 1000px;
-  height: 1000px;
-  left: -500px;
-  bottom: -500px;
-}
-
-/* Opacity shades for circles */
-.shade1 {
-  opacity: 0.2;
-}
-
-.shade2 {
-  opacity: 0.5;
-}
-
-.shade3 {
-  opacity: 0.7;
-}
-
-.shade4 {
-  opacity: 0.8;
-}
-
-.shade5 {
-  opacity: 0.9;
-}
-
-/* Dark mode colors */
-.dark-mode-shade1 {
-  opacity: 0.2;
-  background: #88e58b;
-}
-
-.dark-mode-shade2 {
-  opacity: 0.5;
-  background: #88e58b;
-}
-
-.dark-mode-shade3 {
-  opacity: 0.7;
-  background: #88e58b;
-}
-
-.dark-mode-shade4 {
-  opacity: 0.8;
-  background: #88e58b;
-}
-
-.dark-mode-shade5 {
-  opacity: 0.9;
-  background: #88e58b;
-}
-
-
-/* styles.css */
-
-/* Keyframes for animated border */
 @keyframes borderAnimation {
   0% {
     border-color: #88e58bd1;
-    transform: translateX(0);
+    border-radius: 10px;
+    transform: translateX(0) rotate(0deg) scale(1);
+    box-shadow: 0 0 5px rgba(136, 229, 139, 0.5);
+  }
+  25% {
+    border-color: #ffed4cce;
+    border-radius: 30px;
+    transform: translateX(5px) rotate(5deg) scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 237, 76, 0.7);
   }
   50% {
-    border-color: #ffed4cce;
-    transform: translateX(5px); /* Example: Move border horizontally */
+    border-color: #02ce5f;
+    border-radius: 5px;
+    transform: translateX(-5px) rotate(-5deg) scale(0.95);
+    box-shadow: 0 0 15px rgba(2, 206, 95, 0.6);
+  }
+  75% {
+    border-color: #0288ce;
+    border-radius: 20px;
+    transform: translateX(3px) rotate(3deg) scale(1.02);
+    box-shadow: 0 0 10px rgba(2, 136, 206, 0.7);
   }
   100% {
     border-color: #ce0202b9;
-    transform: translateX(0);
+    border-radius: 10px;
+    transform: translateX(0) rotate(0deg) scale(1);
+    box-shadow: 0 0 5px rgba(206, 2, 2, 0.5);
   }
 }
 
-.border {
-  border: 5px solid #ce0202;
-  animation: borderAnimation 2s infinite; /* Adjust duration and animation behavior as needed */
+/* Optional hover effect */
+.border:hover {
+  animation-play-state: paused;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
-
- 
-
-/* Enhanced Ripple and Pulse Animations */
-@keyframes ripple {
-  0% {
-    transform: scale(0.5) rotate(0deg);
-    opacity: 0.7;
-    box-shadow: 0 0 10px rgba(72, 187, 120, 0.3);
-  }
-  50% {
-    transform: scale(1) rotate(180deg);
-    opacity: 0.5;
-    box-shadow: 0 0 20px rgba(72, 187, 120, 0.5);
-  }
-  100% {
-    transform: scale(1.5) rotate(360deg);
-    opacity: 0.2;
-    box-shadow: 0 0 30px rgba(72, 187, 120, 0.2);
-  }
-}
-
-.ripple-background {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  perspective: 1000px;
-}
-
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 30% 30%, 
-    rgba(72, 187, 120, 0.2), 
-    rgba(72, 187, 120, 0.1) 50%, 
-    transparent 70%
-  );
-  animation: ripple 5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-  transform-origin: center;
-  transition: all 0.5s ease;
-}
-
-.xxlarge {
-  width: 500px;
-  height: 500px;
-  animation-delay: -0.5s;
-}
-
-.xlarge {
-  width: 400px;
-  height: 400px;
-  animation-delay: -1s;
-}
-
-.large {
-  width: 300px;
-  height: 300px;
-  animation-delay: -1.5s;
-}
-
-.medium {
-  width: 250px;
-  height: 250px;
-  animation-delay: -2s;
-}
-
-.small {
-  width: 200px;
-  height: 200px;
-  animation-delay: -2.5s;
-}
-
-/* Dark Mode Specific Shades */
-.dark-mode-shade1 {
-  background: radial-gradient(
-    circle at 30% 30%, 
-    rgba(45, 55, 72, 0.3), 
-    rgba(45, 55, 72, 0.2) 50%, 
-    transparent 70%
-  );
-}
-
-.dark-mode-shade2 {
-  background: radial-gradient(
-    circle at 30% 30%, 
-    rgba(55, 65, 82, 0.3), 
-    rgba(55, 65, 82, 0.2) 50%, 
-    transparent 70%
-  );
-}
-
-.dark-mode-shade3 {
-  background: radial-gradient(
-    circle at 30% 30%, 
-    rgba(65, 75, 92, 0.3), 
-    rgba(65, 75, 92, 0.2) 50%, 
-    transparent 70%
-  );
-}
-
-.dark-mode-shade4 {
-  background: radial-gradient(
-    circle at 30% 30%, 
-    rgba(75, 85, 102, 0.3), 
-    rgba(75, 85, 102, 0.2) 50%, 
-    transparent 70%
-  );
-}
-
-.dark-mode-shade5 {
-  background: radial-gradient(
-    circle at 30% 30%, 
-    rgba(85, 95, 112, 0.3), 
-    rgba(85, 95, 112, 0.2) 50%, 
-    transparent 70%
-  );
-}
-

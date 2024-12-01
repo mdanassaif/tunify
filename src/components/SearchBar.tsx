@@ -1,5 +1,3 @@
-// Cute Search Bar on /components/SearchBar.tsx
-
 'use client'
 
 import React, { useState } from 'react';
@@ -9,9 +7,14 @@ import { useTheme } from '../context/ThemeContext';
 interface SearchBarProps {
   songs: Song[];
   setSearchResults: React.Dispatch<React.SetStateAction<Song[]>>;
+  className?: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ songs, setSearchResults }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ 
+  songs, 
+  setSearchResults, 
+  className = '' 
+}) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const { isDarkMode } = useTheme();
 
@@ -27,20 +30,28 @@ const SearchBar: React.FC<SearchBarProps> = ({ songs, setSearchResults }) => {
     setSearchResults(filteredSongs);  
   };
 
-
   return (
-    <div className="mt-0 w-[70%]">
+    <div className={className}>
       <input
         type="text"
         placeholder="Search songs, artists..."
         value={searchQuery}
         onChange={handleSearchInputChange}
-        className={`w-full p-2 rounded-lg outline-none transition-colors duration-300 ${isDarkMode ? 'bg-gray-800 text-white placeholder-gray-500' : 'bg-gray-200 text-black placeholder-gray-600'}`}
+        className={`
+          w-full 
+          p-2 
+          rounded-lg 
+          outline-none 
+          transition-colors 
+          duration-300 
+          focus:ring-2 
+          ${isDarkMode 
+            ? 'bg-gray-800 text-white placeholder-gray-500 focus:ring-blue-500' 
+            : 'bg-gray-200 text-black placeholder-gray-600 focus:ring-blue-300'
+          }`}
       />
     </div>
-
   );
 };
 
 export default SearchBar;
-

@@ -13,7 +13,7 @@ interface SongListProps {
 
   onSongClick: (song: Song) => void;
 
-  onDeleteSong: (songId: string) => Promise<void>;
+ 
 }
 
 const SongList: React.FC<SongListProps> = ({ tracks, onSongClick }) => {

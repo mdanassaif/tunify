@@ -78,37 +78,23 @@ export default function Home() {
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray text-black'}`}>
       <Header />
-      <main className="max-w-6xl mx-auto p-8">
-        <div className="flex justify-between items-center mb-4 ">
-          <SearchBar songs={localSongs} setSearchResults={setSearchResults} />
-          <button 
-            onClick={() => setIsUploadModalOpen(true)}
-            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-          >
-            Upload Song
-          </button>
+      <main className="max-w-6xl mx-auto p-4 sm:p-6 md:p-8">
+  <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+    <SearchBar 
+      songs={localSongs} 
+      setSearchResults={setSearchResults} 
+      className="w-full sm:w-[70%]" 
+    />
+    <button 
+      onClick={() => setIsUploadModalOpen(true)}
+      className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors duration-300"
+    >
+      Upload Song
+    </button>
         </div>
         <SongList 
           tracks={searchResults} 
-          onSongClick={handleSongClick}
-          onDeleteSong={async (songId) => {
-            try {
-              // Delete song from Supabase
-              const { error } = await supabase
-                .from('songs')
-                .delete()
-                .eq('id', songId.replace('custom-', ''));
-
-              if (error) throw error;
-
-              // Update local state
-              const updatedSongs = localSongs.filter(song => song.id !== songId);
-              setLocalSongs(updatedSongs);
-              setSearchResults(updatedSongs);
-            } catch (err) {
-              console.error('Delete error:', err);
-            }
-          }}
+          onSongClick={handleSongClick}  
         />
       </main>
       <Player song={currentSong} />

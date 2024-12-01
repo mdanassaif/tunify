@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Song } from '../types';
 import { useTheme } from '../context/ThemeContext';
 import { songs as tracks } from '../musicData';
+import RippleBackground from './RippleBaclground';
 
 interface PlayerProps {
   song: Song | null;
@@ -181,13 +182,7 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
       {currentSong ? (
         <div className={`flex items-center space-x-4 w-full ${isExpanded ? 'flex-col' : 'flex-row'} max-w-screen-lg mx-auto ${isExpanded ? 'snow-background' : ''}`}>
           {isExpanded && (
-            <div className="ripple-background">
-              <div className={`circle xxlarge ${isDarkMode ? 'dark-mode-shade1' : 'shade1'}`}></div>
-              <div className={`circle xlarge ${isDarkMode ? 'dark-mode-shade2' : 'shade2'}`}></div>
-              <div className={`circle large ${isDarkMode ? 'dark-mode-shade3' : 'shade3'}`}></div>
-              <div className={`circle medium ${isDarkMode ? 'dark-mode-shade4' : 'shade4'}`}></div>
-              <div className={`circle small ${isDarkMode ? 'dark-mode-shade5' : 'shade5'}`}></div>
-            </div>
+            <RippleBackground />
           )}
           <div className={`flex-shrink-0 ${isExpanded ? 'mb-4' : ''}`}>
             <Image 
@@ -224,8 +219,8 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                   background: `linear-gradient(to right, 
                     #48bb78 0%, 
                     #48bb78 ${(currentTime / duration) * 100}%, 
-                    #e2e8f0 ${(currentTime / duration) * 100}%, 
-                    #e2e8f0 100%)`,
+                    #75a5e3 ${(currentTime / duration) * 100}%, 
+                    #dde6f8 100%)`,
                 }}
               />
               <span className="text-xs text-gray-400">{formatTime(currentTime)}</span>
@@ -301,40 +296,41 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 </svg>
               </button>
 
-              {/* Volume Control */}
-              <div className="flex items-center space-x-2">
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="24" 
-                  height="24" 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor" 
-                  className={isDarkMode ? 'text-white' : 'text-black'}
-                >
-                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                </svg>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={volume}
-                  onChange={handleVolumeChange}
-                  className="w-20 appearance-none h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full 
-                  outline-none 
-                  transition-all duration-300 
-                  hover:h-3 
-                  transform hover:scale-y-110 
-                  cursor-pointer"
-                  style={{
-                    background: `linear-gradient(to right, 
-                      #48bb78 0%, 
-                      #48bb78 ${volume * 100}%, 
-                      #e2e8f0 ${volume * 100}%, 
-                      #e2e8f0 100%)`,
-                  }}
-                />
-              </div>
+        
+             {/* Volume Control */}
+<div className="flex items-center space-x-2 hidden sm:flex">
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={isDarkMode ? 'text-white' : 'text-black'}
+  >
+    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+  </svg>
+  <input
+    type="range"
+    min="0"
+    max="1"
+    step="0.01"
+    value={volume}
+    onChange={handleVolumeChange}
+    className="w-20 appearance-none h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full 
+    outline-none 
+    transition-all duration-300 
+    hover:h-3 
+    transform hover:scale-y-110 
+    cursor-pointer"
+    style={{
+      background: `linear-gradient(to right, 
+        #48bb78 0%, 
+        #48bb78 ${volume * 100}%, 
+        #e2e8f0 ${volume * 100}%, 
+        #e2e8f0 100%)`,
+    }}
+  />
+</div>
             </div>
           </div>
         </div>
