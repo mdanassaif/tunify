@@ -48,6 +48,8 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
     }
   }, []);
 
+  const UPLOAD_TIMEOUT = 10 * 60 * 1000;
+
   const startCountdown = (remainingMs: number) => {
     setRemainingTime(Math.ceil(remainingMs / 1000));
     
@@ -155,7 +157,6 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check upload timeout
     if (!canUpload) {
       setError('Please wait before uploading another song');
       return;
@@ -164,7 +165,6 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
     setError('');
     setIsUploading(true);
 
-    // Validate inputs
     if (!title.trim()) {
       setError('Please enter a song title');
       setIsUploading(false);
@@ -178,7 +178,6 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
     }
 
     try {
-      // Upload files to Supabase
       const uploadedFiles = await handleFileUpload();
       
       if (!uploadedFiles) {
@@ -186,7 +185,6 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
         return;
       }
 
-      // Save song metadata to Supabase
       const { data, error } = await supabase
         .from('songs')
         .insert([{
@@ -199,12 +197,9 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
 
       if (error) throw error;
 
-      // Set last upload time
-      localStorage.setItem('lastSongUploadTime', Date.now().toString());
       setCanUpload(false);
-      startCountdown(60 * 60 * 1000);
+      startCountdown(UPLOAD_TIMEOUT); // Start 10-minute countdown
 
-      // Call parent component's upload handler
       onSongUpload({
         title,
         artist,
@@ -212,7 +207,6 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
         audioUrl: uploadedFiles.audioUrl
       });
 
-      // Reset form
       setTitle('');
       setArtist('');
       setCoverFile(null);
