@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300&display=swap');
+.font-cute {
+  font-family: 'Kalam', cursive;
+}
 .active-song {
   position: relative;
   overflow: hidden;
@@ -99,6 +102,13 @@
   border-radius: 10px;
   animation: borderAnimation 2s infinite ease-in-out;
   transition: all 0.3s ease;
+}
+
+.border2 {
+  border: 3px solid #88e58bd1;
+  border-radius: 10px;
+  
+ 
 }
 
 @keyframes borderAnimation {

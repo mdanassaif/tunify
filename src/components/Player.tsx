@@ -1,17 +1,16 @@
-// Cute Player on /components/Player.tsx
-
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Song } from '../types';
 import { useTheme } from '../context/ThemeContext';
-import { songs as tracks } from '../musicData';
 import RippleBackground from './RippleBaclground';
 
 interface PlayerProps {
   song: Song | null;
+  onSongChange: (song: Song | null) => void; // Added to update parent state
+  tracks: Song[]; // Added to access the full song list
 }
 
-const Player: React.FC<PlayerProps> = ({ song }) => {
+const Player: React.FC<PlayerProps> = ({ song, onSongChange, tracks }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -25,15 +24,20 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
 
+ 
   useEffect(() => {
     if (song && audioRef.current) {
-      audioRef.current.src = song.audioUrl;
-      audioRef.current.play();
-      setIsPlaying(true);
+      // Only update src and play if the song has changed
+      if (audioRef.current.src !== song.audioUrl) {
+        audioRef.current.src = song.audioUrl;
+        audioRef.current.play().catch((err) => console.error("Playback error:", err));
+        setIsPlaying(true);
+      }
       setCurrentSong(song);
       setCurrentSongIndex(tracks.findIndex((t) => t.id === song.id));
+      onSongChange(song);
     }
-  }, [song]);
+  }, [song, tracks, onSongChange]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -54,7 +58,6 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
     pause: `text-red-500 hover:text-red-600 transition-colors duration-300 ease-in-out`,
     control: `text-blue-500 hover:text-blue-600 transition-transform duration-300 hover:scale-110`,
   };
-
 
   const handlePlayPause = () => {
     if (audioRef.current) {
@@ -95,30 +98,36 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
   };
 
   const handleNext = () => {
-    if (audioRef.current) {
+    if (audioRef.current && tracks.length > 0) {
       const newIndex = isShuffleActive
         ? Math.floor(Math.random() * tracks.length)
         : (currentSongIndex + 1) % tracks.length;
-      setCurrentSong(tracks[newIndex]);
+      const newSong = tracks[newIndex];
+      setCurrentSong(newSong);
       setCurrentSongIndex(newIndex);
-      audioRef.current.src = tracks[newIndex].audioUrl;
+      audioRef.current.src = newSong.audioUrl;
       audioRef.current.play();
       setIsPlaying(true);
+      onSongChange(newSong); // Notify parent of song change
     }
   };
 
   const handleBack = () => {
-    if (audioRef.current && currentTime > 5) {
-      audioRef.current.currentTime = 0;
-    } else if (audioRef.current) {
-      const newIndex = isShuffleActive
-        ? Math.floor(Math.random() * tracks.length)
-        : (currentSongIndex - 1 + tracks.length) % tracks.length;
-      setCurrentSong(tracks[newIndex]);
-      setCurrentSongIndex(newIndex);
-      audioRef.current.src = tracks[newIndex].audioUrl;
-      audioRef.current.play();
-      setIsPlaying(true);
+    if (audioRef.current && tracks.length > 0) {
+      if (currentTime > 5) {
+        audioRef.current.currentTime = 0;
+      } else {
+        const newIndex = isShuffleActive
+          ? Math.floor(Math.random() * tracks.length)
+          : (currentSongIndex - 1 + tracks.length) % tracks.length;
+        const newSong = tracks[newIndex];
+        setCurrentSong(newSong);
+        setCurrentSongIndex(newIndex);
+        audioRef.current.src = newSong.audioUrl;
+        audioRef.current.play();
+        setIsPlaying(true);
+        onSongChange(newSong); // Notify parent of song change
+      }
     }
   };
 
@@ -181,17 +190,14 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
     >
       {currentSong ? (
         <div className={`flex items-center space-x-4 w-full ${isExpanded ? 'flex-col' : 'flex-row'} max-w-screen-lg mx-auto ${isExpanded ? 'snow-background' : ''}`}>
-          {isExpanded && (
-            <RippleBackground />
-          )}
+          {isExpanded && <RippleBackground />}
           <div className={`flex-shrink-0 ${isExpanded ? 'mb-4' : ''}`}>
             <Image
               src={currentSong.coverUrl}
               alt="Song Cover"
               width={isExpanded ? 350 : 100}
-              
               height={isExpanded ? 350 : 100}
-              className="rounded-lg border shadow-lg transform transition-transform duration-300 hover:scale-105 "
+              className="rounded-lg border shadow-lg transform transition-transform duration-300 hover:scale-105"
             />
           </div>
           <div className="flex-1 min-w-0">
@@ -202,7 +208,6 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
               {currentSong.artist}
             </p>
 
-            {/* Improved Seek Slider */}
             <div className="flex items-center space-x-4 mt-2">
               <input
                 type="range"
@@ -210,26 +215,15 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 max={duration}
                 value={currentTime}
                 onChange={handleSeek}
-                className="appearance-none w-full h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full outline-none 
-                focus:outline-none 
-                transition-all duration-300 ease-in-out 
-                hover:h-3 
-                transform hover:scale-y-110 
-                cursor-pointer"
+                className="appearance-none w-full h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full outline-none focus:outline-none transition-all duration-300 ease-in-out hover:h-3 transform hover:scale-y-110 cursor-pointer"
                 style={{
-                  background: `linear-gradient(to right, 
-                    #48bb78 0%, 
-                    #48bb78 ${(currentTime / duration) * 100}%, 
-                    #75a5e3 ${(currentTime / duration) * 100}%, 
-                    #dde6f8 100%)`,
+                  background: `linear-gradient(to right, #48bb78 0%, #48bb78 ${(currentTime / duration) * 100}%, #75a5e3 ${(currentTime / duration) * 100}%, #dde6f8 100%)`,
                 }}
               />
               <span className="text-xs text-gray-400">{formatTime(currentTime)}</span>
             </div>
 
-            {/* Control Buttons */}
             <div className="flex items-center space-x-4 mt-2">
-              {/* Repeat Button */}
               <button
                 className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isRepeatActive ? 'text-green-500' : isDarkMode ? 'text-white' : 'text-black'}`}
                 onClick={handleRepeat}
@@ -239,7 +233,6 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 </svg>
               </button>
 
-              {/* Previous Button */}
               <button
                 className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isDarkMode ? 'text-white' : 'text-black'}`}
                 onClick={handleBack}
@@ -249,11 +242,7 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 </svg>
               </button>
 
-              {/* Play/Pause Button */}
-              <button
-                className={`focus:outline-none transform transition-all duration-300`}
-                onClick={handlePlayPause}
-              >
+              <button className={`focus:outline-none transform transition-all duration-300`} onClick={handlePlayPause}>
                 {isPlaying ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -277,7 +266,6 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 )}
               </button>
 
-              {/* Next Button */}
               <button
                 className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isDarkMode ? 'text-white' : 'text-black'}`}
                 onClick={handleNext}
@@ -287,7 +275,6 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 </svg>
               </button>
 
-              {/* Shuffle Button */}
               <button
                 className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isShuffleActive ? 'text-green-500' : isDarkMode ? 'text-white' : 'text-black'}`}
                 onClick={handleShuffle}
@@ -297,8 +284,6 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                 </svg>
               </button>
 
-
-              {/* Volume Control */}
               <div className="flex items-center space-x-2 hidden sm:flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -317,18 +302,9 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
                   step="0.01"
                   value={volume}
                   onChange={handleVolumeChange}
-                  className="w-20 appearance-none h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full 
-    outline-none 
-    transition-all duration-300 
-    hover:h-3 
-    transform hover:scale-y-110 
-    cursor-pointer"
+                  className="w-20 appearance-none h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full outline-none transition-all duration-300 hover:h-3 transform hover:scale-y-110 cursor-pointer"
                   style={{
-                    background: `linear-gradient(to right, 
-        #48bb78 0%, 
-        #48bb78 ${volume * 100}%, 
-        #e2e8f0 ${volume * 100}%, 
-        #e2e8f0 100%)`,
+                    background: `linear-gradient(to right, #48bb78 0%, #48bb78 ${volume * 100}%, #e2e8f0 ${volume * 100}%, #e2e8f0 100%)`,
                   }}
                 />
               </div>
@@ -341,10 +317,8 @@ const Player: React.FC<PlayerProps> = ({ song }) => {
 
       <audio ref={audioRef} onEnded={handleNext} />
 
-      {/* Expand/Minimize Button */}
       <button
-        className={`absolute bottom-2 right-2 p-2 ${isDarkMode ? 'text-white' : 'text-black'} 
-   transform transition-transform duration-300 hover:scale-110`}
+        className={`absolute bottom-2 right-2 p-2 ${isDarkMode ? 'text-white' : 'text-black'} transform transition-transform duration-300 hover:scale-110`}
         onClick={handleExpand}
       >
         {isExpanded ? (
