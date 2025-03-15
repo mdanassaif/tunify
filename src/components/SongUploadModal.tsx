@@ -16,6 +16,8 @@ interface SongUploadModalProps {
   }) => void;
 }
 
+const DEFAULT_COVER_URL = '/defailt.jpeg'; // Replace with your actual default image URL
+
 const SongUploadModal: React.FC<SongUploadModalProps> = ({
   isOpen,
   onClose,
@@ -33,8 +35,8 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
   const [remainingTime, setRemainingTime] = useState(0);
   const [uploadMethod, setUploadMethod] = useState<'file' | 'youtube'>('file');
 
-  const UPLOAD_TIMEOUT = 10 * 60 * 1000; // 10 minutes
-  const RAPIDAPI_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_KEY || 'f512db5188msh3cb65e2d58aba6cp19f253jsn712920efafe7';
+  const UPLOAD_TIMEOUT = 10 * 60 * 1000;
+  const RAPIDAPI_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_KEY || 'your-api-key';
 
   const startCountdown = (remainingMs: number) => {
     setRemainingTime(Math.ceil(remainingMs / 1000));
@@ -66,35 +68,33 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
       return false;
     }
     if (uploadMethod === 'file') {
-      if (!coverFile || !audioFile) {
-        setError('Please select both cover and audio files');
-        return false;
-      }
-      if (!coverFile.type.startsWith('image/')) {
-        setError('Cover file must be an image');
+      if (!audioFile) {
+        setError('Please select an audio file');
         return false;
       }
       if (audioFile.type !== 'audio/mpeg') {
         setError('Audio file must be an MP3');
         return false;
       }
-      const MAX_COVER_SIZE = 10 * 1024 * 1024;
       const MAX_AUDIO_SIZE = 50 * 1024 * 1024;
-      if (coverFile.size > MAX_COVER_SIZE) {
-        setError('Cover image must be less than 10MB');
-        return false;
-      }
       if (audioFile.size > MAX_AUDIO_SIZE) {
         setError('Audio file must be less than 50MB');
         return false;
       }
+      if (coverFile) {
+        const MAX_COVER_SIZE = 10 * 1024 * 1024;
+        if (!coverFile.type.startsWith('image/')) {
+          setError('Cover file must be an image');
+          return false;
+        }
+        if (coverFile.size > MAX_COVER_SIZE) {
+          setError('Cover image must be less than 10MB');
+          return false;
+        }
+      }
     } else if (uploadMethod === 'youtube') {
       if (!youtubeUrl.trim() || !/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/.test(youtubeUrl)) {
         setError('Please enter a valid YouTube URL');
-        return false;
-      }
-      if (!coverFile) {
-        setError('Please select a cover image for the YouTube song');
         return false;
       }
     }
@@ -102,7 +102,7 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
   };
 
   const pollAudioStatus = async (id: string): Promise<string> => {
-    const maxAttempts = 30; // ~1 minute with 2-second intervals
+    const maxAttempts = 30;
     let attempts = 0;
 
     while (attempts < maxAttempts) {
@@ -124,7 +124,7 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
       }
 
       attempts++;
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2 seconds
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     }
 
     throw new Error('YouTube conversion timed out');
@@ -135,13 +135,15 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
 
     setIsUploading(true);
     try {
-      // Upload cover image to Supabase
-      const coverFileName = `${uuidv4()}-cover.${coverFile!.name.split('.').pop()}`;
-      const { error: coverUploadError } = await supabase.storage
-        .from('song-covers')
-        .upload(coverFileName, coverFile!, { cacheControl: '3600', upsert: false });
-      if (coverUploadError) throw new Error(`Cover upload failed: ${coverUploadError.message}`);
-      const coverUrl = supabase.storage.from('song-covers').getPublicUrl(coverFileName).data.publicUrl;
+      let coverUrl = DEFAULT_COVER_URL;
+      if (coverFile) {
+        const coverFileName = `${uuidv4()}-cover.${coverFile.name.split('.').pop()}`;
+        const { error: coverUploadError } = await supabase.storage
+          .from('song-covers')
+          .upload(coverFileName, coverFile, { cacheControl: '3600', upsert: false });
+        if (coverUploadError) throw new Error(`Cover upload failed: ${coverUploadError.message}`);
+        coverUrl = supabase.storage.from('song-covers').getPublicUrl(coverFileName).data.publicUrl;
+      }
 
       let audioUrl = '';
       if (uploadMethod === 'file') {
@@ -319,7 +321,7 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
             <input
               type="text"
               value={artist}
-              onChange={(e) => setArtist(e.target.value)} // Fixed: now updates artist state
+              onChange={(e) => setArtist(e.target.value)}
               className={`w-full p-2 rounded-md border2 ${
                 isDarkMode
                   ? 'bg-gray-700 border-gray-600 text-white'
@@ -329,7 +331,7 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
             />
           </div>
           <div>
-            <label className="block mb-1 text-sm font-medium">Cover Image</label>
+            <label className="block mb-1 text-sm font-medium">Cover Image (Optional)</label>
             <input
               type="file"
               accept="image/*"
@@ -337,7 +339,6 @@ const SongUploadModal: React.FC<SongUploadModalProps> = ({
               className={`w-full p-2 rounded-md ${
                 isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-black'
               }`}
-              required
             />
           </div>
           {uploadMethod === 'file' ? (

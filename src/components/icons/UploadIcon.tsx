@@ -3,8 +3,8 @@ import React from 'react';
 export const UploadIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
+    fill="#584d4d"
+    viewBox="0 0 512 512"
     stroke="currentColor"
     className={className}
   >
@@ -12,7 +12,8 @@ export const UploadIcon: React.FC<{ className?: string }> = ({ className }) => (
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
-      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+      d="M256 4.1C114.6 4.1 0 118.7 0 260.1c0 121 84.1 222.2 196.9 248.9V279.8H98.5L256 102.6l157.5 177.2H315V509c112.9-26.7 197-127.9 197-248.9c0-141.4-114.6-256-256-256z"
     />
   </svg>
 );
+ 

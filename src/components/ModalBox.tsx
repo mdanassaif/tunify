@@ -14,7 +14,7 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
       >
         <div className="flex justify-between items-center mb-4">
 
-          <h2 className="text-lg font-extrabold text-[#2dd4bf]">About This Tunify</h2>
+          <h2 className="text-lg font-extrabold text-[#2dd4bf]">About Tunify</h2>
           <button
             onClick={onClose}
             className="text-[#2dd4bf] hover:text-[#0f766e] focus:outline-none"
@@ -40,7 +40,7 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
           <div className="w-full">
             <div className="w-full mb-5">
               <Image
-                src="/musiclover.jpg"
+                src="/musiclover.png"
                 width={30}
                 height={30}
                 alt="App Image"
@@ -49,9 +49,9 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
               />
             </div>
           </div>
-          <p>
+          <b className='uppercase font-extrabold'>
             Welcome to Tunify Music Player
-          </p>
+          </b>
           <p className="mt-4">
             <strong>You can:</strong>
           </p>
@@ -61,11 +61,11 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
             <li>Enjoy Background Animations</li>
             <li>Search Songs</li>
             <li>Switch between Light/Dark Themes</li>
-            <li>Can Upload own Favorite Songs</li>
+            <li>Can Upload own Favorite Songs easily</li>
           </ul>
 
           <p className="mt-6 border-t pt-4 text-center text-gray-500">
-            Looking for free, open-source SVG icons? Check out{' '}
+          Need icons? Explore  {''}
             <a
               href="https://freesvgicons.com/"
               target="_blank"
@@ -74,7 +74,7 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
             >
               Free SVG Icons
             </a>
-            , a search engine of 200k+ SVG icons for your projects.
+            
           </p>
         </div>
       </motion.div>

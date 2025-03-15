@@ -201,10 +201,10 @@ const Player: React.FC<PlayerProps> = ({ song, onSongChange, tracks }) => {
             />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className={`${isDarkMode ? 'text-white' : 'text-black'} ${isExpanded ? 'text-3xl' : 'text-lg'} font-bold`}>
+            <h3 className={`${isDarkMode ? 'text-white' : 'text-white'} ${isExpanded ? 'text-3xl' : 'text-lg'} font-bold`}>
               {currentSong.title}
             </h3>
-            <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} ${isExpanded ? 'text-xl' : 'text-base'}`}>
+            <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-400'} ${isExpanded ? 'text-xl' : 'text-base'}`}>
               {currentSong.artist}
             </p>
 
@@ -225,7 +225,7 @@ const Player: React.FC<PlayerProps> = ({ song, onSongChange, tracks }) => {
 
             <div className="flex items-center space-x-4 mt-2">
               <button
-                className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isRepeatActive ? 'text-green-500' : isDarkMode ? 'text-white' : 'text-black'}`}
+                className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isRepeatActive ? 'text-green-500' : isDarkMode ? 'text-white' : 'text-white'}`}
                 onClick={handleRepeat}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width={isExpanded ? 40 : 25} height={isExpanded ? 50 : 25} viewBox="0 0 24 24">
@@ -234,7 +234,7 @@ const Player: React.FC<PlayerProps> = ({ song, onSongChange, tracks }) => {
               </button>
 
               <button
-                className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isDarkMode ? 'text-white' : 'text-black'}`}
+                className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isDarkMode ? 'text-white' : 'text-white'}`}
                 onClick={handleBack}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width={isExpanded ? 40 : 25} height={isExpanded ? 50 : 25} viewBox="0 0 24 24">
@@ -267,7 +267,7 @@ const Player: React.FC<PlayerProps> = ({ song, onSongChange, tracks }) => {
               </button>
 
               <button
-                className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isDarkMode ? 'text-white' : 'text-black'}`}
+                className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isDarkMode ? 'text-white' : 'text-white'}`}
                 onClick={handleNext}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width={isExpanded ? 40 : 25} height={isExpanded ? 50 : 25} viewBox="0 0 24 24">
@@ -276,7 +276,7 @@ const Player: React.FC<PlayerProps> = ({ song, onSongChange, tracks }) => {
               </button>
 
               <button
-                className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isShuffleActive ? 'text-green-500' : isDarkMode ? 'text-white' : 'text-black'}`}
+                className={`focus:outline-none transform transition-transform duration-200 hover:scale-110 ${isShuffleActive ? 'text-green-500' : isDarkMode ? 'text-white' : 'text-white'}`}
                 onClick={handleShuffle}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width={isExpanded ? 40 : 25} height={isExpanded ? 50 : 25} viewBox="0 0 24 24">

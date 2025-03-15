@@ -98,8 +98,9 @@ export default function Home() {
         <SearchBar
           songs={localSongs}
           setSearchResults={setSearchResults}
-          className="w-full mb-4"
-        />
+          className="w-full mb-4" onSongUpload={function (newSongData: { title: string; artist: string; coverUrl: string; audioUrl: string; }): void {
+            throw new Error('Function not implemented.');
+          } }        />
         <SongList
           tracks={searchResults}
           onSongClick={handleSongClick}
