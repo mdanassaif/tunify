@@ -56,7 +56,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         onClick={() => setIsUploadModalOpen(true)}
         aria-label="Upload Song"
         className={`p-2 rounded-md ${
-          isDarkMode ? 'bg-[#88e58b] text-black hover:bg-gray-300' : 'bg-black text-white hover:bg-gray-700 '
+          isDarkMode ? 'bg-[#88e58b] text-white hover:bg-[#317133]' : 'bg-[#88e58b] text-white hover:bg-[#317133] '
         } transition-colors duration-150`}
       >
         <UploadIcon className="w-5 h-5 " />

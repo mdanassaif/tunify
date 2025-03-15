@@ -3,7 +3,7 @@ import React from 'react';
 export const UploadIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="#584d4d"
+    fill="#000000"
     viewBox="0 0 512 512"
     stroke="currentColor"
     className={className}

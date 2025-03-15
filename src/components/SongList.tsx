@@ -21,7 +21,7 @@ const SongList: React.FC<SongListProps> = ({ tracks, onSongClick, currentSong })
 
   return (
     <motion.div
-      className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-32"
+      className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-[180px]"
       initial="hidden"
       animate="visible"
       variants={{

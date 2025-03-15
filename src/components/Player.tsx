@@ -184,7 +184,7 @@ const Player: React.FC<PlayerProps> = ({ song, onSongChange, tracks }) => {
   return (
     <div
       ref={playerRef}
-      className={`fixed bottom-0 left-0 right-0 p-4 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'} shadow-md flex items-center justify-center transition-all duration-300 ${isExpanded ? 'h-full' : 'h-30'}`}
+      className={`fixed bottom-0 left-0 right-0 p-4 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-500'} shadow-md flex items-center justify-center transition-all duration-300 ${isExpanded ? 'h-full' : 'h-30'}`}
       onMouseDown={handleDragStart}
       onTouchStart={handleDragStart}
     >
